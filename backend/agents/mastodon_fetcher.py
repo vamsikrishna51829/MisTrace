@@ -33,7 +33,7 @@ def call_api(Mastodonapi,Mastodon_url):
 def json_into_dataframe(JSON):
 
     data = JSON
-    df = pd.DataFrame(data=data['accounts'],columns=["username","acct","display_name","note","bot","followers_count","status_count","created_at","url"])
+    df = pd.DataFrame(data=data['accounts'],columns=["username","acct","display_name","note","bot","followers_count","statuses_count","created_at","url"])
     df.to_csv("../../data/raw/Mastodonapi_KEYWORD_TIMESTAMP.csv",index=False,)
 
 get_mastodonapi()
