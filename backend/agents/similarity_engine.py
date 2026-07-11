@@ -3,7 +3,7 @@ from sentence_transformers import SentenceTransformer
 import numpy as np
 from itertools import combinations
 
-def similarity_engine():
+def similarity_engine(threshold:float):
     similarity_score = []
     sentences = pd.read_csv("../../data/processed/unified_dataset.csv",usecols=['extracted_claim'])
     sentences = [i[0] for i in sentences.values]
@@ -13,11 +13,11 @@ def similarity_engine():
     comb_sentences = combinations(sentences,2)
     for sentence, pair in zip(comb_sentences, comb):
         score = distance_of_vectors(pair[0],pair[1])
-        if score >= 0.8:
+        if score >= threshold:
             similarity_score.append([sentence[0],sentence[1],score])
     return similarity_score
 
 def distance_of_vectors(vector1,vector2):
     return np.dot(vector1,vector2)
 
-similarity_engine()
+similarity_engine(0.8)
