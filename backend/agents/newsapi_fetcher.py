@@ -5,18 +5,18 @@ from ratelimit import limits
 import sys
 import pandas as pd
 
-def get_newsapi():
+def get_news_from_newsapi(keyword:str):
 
     load_dotenv()
     Newsapi = getenv("NEWS_API_KEY")
-    call_api(Newsapi=Newsapi)
+    call_api(Newsapi=Newsapi,keyword= keyword)
 
 @limits(calls=1,period=6)
-def call_api(Newsapi):
+def call_api(Newsapi,keyword):
     
     parameters = {
         "apiKey": Newsapi,
-        'q': "COVID",
+        'q': keyword,
         'pageSize':6
     }
 
@@ -41,4 +41,4 @@ def convert_to_name(source):
     source = source['name']
     return source
 
-get_newsapi()
+get_news_from_newsapi(keyword= "covid")
