@@ -3,7 +3,7 @@ import sys
 
 def news_combine(df1:pd.DataFrame = None,df2:pd.DataFrame = None):
     try:
-        if df2 != None:
+        if df2 is not None:
             df2 = df2.rename(columns={
                 "username" : "author",
                 "created_at" : "publishedAt",
@@ -14,16 +14,16 @@ def news_combine(df1:pd.DataFrame = None,df2:pd.DataFrame = None):
             
             df2 = df2.assign(platform = "Mastodonapi",source = "mastodon.social")
         
-        if df1 != None:
+        if df1 is not None:
             df1 = df1.assign(platform = "Newsapi")
 
-        if (df1 != None) and (df2 != None):
+        if (df1 is not None) and (df2 is not None):
             df = pd.concat([df1,df2])
 
-        elif (df1 == None) and (df2 != None):
+        elif (df1 is None) and (df2 is not None):
             df = df2
 
-        elif (df1 != None) and (df2 == None):
+        elif (df1 is not None) and (df2 is None):
             df = df1
 
         else:
